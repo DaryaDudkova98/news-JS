@@ -11,7 +11,19 @@
             <h1>News Portal</h1>
         </header>
         <main>
-            <div class="sources buttons"></div>
+            <div class="sources-combobox">
+            <input
+                type="text"
+                class="sources-combobox__input"
+                placeholder="Выберите источник"
+                autocomplete="off"
+                role="combobox"
+                aria-expanded="false"
+                aria-controls="sources-listbox"
+            />
+            <button type="button" class="sources-combobox__toggle" aria-label="Открыть список">▾</button>
+            <ul class="sources-combobox__list" id="sources-listbox" role="listbox" hidden></ul>
+            </div>
             <div class="news"></div>
         </main>
         <footer>

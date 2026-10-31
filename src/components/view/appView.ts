@@ -1,6 +1,6 @@
 import News from './news/news';
 import Sources from './sources/sources';
-import { NewsApiResponse, SourcesApiResponse } from '../../types';
+import { NewsApiResponse, SourcesApiResponse, NewsSource } from '../../types';
 
 export class AppView {
     private news: News;
@@ -19,6 +19,10 @@ export class AppView {
     public drawSources(data: SourcesApiResponse): void {
         const values = data?.sources ? data.sources : [];
         this.sources.draw(values);
+    }
+
+    public onSourceSelect(callback: (source: NewsSource) => void): void {
+        this.sources.onSelect = callback;
     }
 }
 
