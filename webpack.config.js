@@ -23,6 +23,17 @@ const baseConfig = {
                 test: /\.css$/i,
                 use: ['style-loader', 'css-loader'],
             },
+            {
+                test: /\.html$/i,
+                use: ['html-loader'],
+            },
+            {
+                test: /\.(svg|png|jpe?g|gif|webp)$/i,
+                type: 'asset/resource',
+                generator: {
+                    filename: 'img/[name][ext]',
+                },
+            },
         ],
     },
     resolve: {
