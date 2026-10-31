@@ -13,6 +13,7 @@ export type Callback<T> = (data: T) => void;
 class Loader {
     private baseLink: string;
     private options: LoaderOptions;
+    private readonly CACHE_TTL = 15 * 60 * 1000;
 
     constructor(baseLink: string, options: LoaderOptions) {
         this.baseLink = baseLink;
@@ -55,10 +56,43 @@ class Loader {
         callback: Callback<T>,
         options: LoaderOptions = {}
     ): void {
-        fetch(this.makeUrl(options, endpoint), { method })
+        const url = this.makeUrl(options, endpoint);
+        const cacheKey = `news_cache_${url}`;
+        const cachedString = localStorage.getItem(cacheKey);
+        
+        if (cachedString) {
+            try {
+                const { timestamp, data } = JSON.parse(cachedString);
+                const now = new Date().getTime();
+
+                if (now - timestamp < this.CACHE_TTL) {
+                    console.log(`[Cache] Данные для ${endpoint} взяты из localStorage`);
+                    callback(data as T);
+                    return;
+                } else {
+                    localStorage.removeItem(cacheKey);
+                }
+            } catch (e) {
+                localStorage.removeItem(cacheKey);
+            }
+        }
+
+        console.log(`[Network] Запрос к API для ${endpoint}`);
+        fetch(url, { method })
             .then(this.errorHandler)
             .then((res) => res.json())
-            .then((data: T) => callback(data))
+            .then((data: T) => {
+                const cacheData = {
+                    timestamp: new Date().getTime(),
+                    data: data,
+                };
+                try {
+                    localStorage.setItem(cacheKey, JSON.stringify(cacheData));
+                } catch (e) {
+                    console.warn('Не удалось сохранить данные в localStorage (возможно, переполнен)');
+                }
+                callback(data);
+            })
             .catch((err: Error) => console.error(err));
     }
 }

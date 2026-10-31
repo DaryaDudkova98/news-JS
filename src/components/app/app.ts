@@ -13,6 +13,7 @@ class App {
 
     public start(): void {
         this.view.onSourceSelect((source: NewsSource) => {
+            console.log('1. App.ts получил выбранный источник:', source);
             this.controller.getNewsBySource(source.id, (data: NewsApiResponse) => {
                 this.view.drawNews(data);
             });
