@@ -1,5 +1,4 @@
 export interface LoaderOptions {
-    apiKey?: string;
     [key: string]: string | undefined;
 }
 
@@ -15,7 +14,7 @@ class Loader {
     private options: LoaderOptions;
     private readonly CACHE_TTL = 15 * 60 * 1000;
 
-    constructor(baseLink: string, options: LoaderOptions) {
+    constructor(baseLink: string, options: LoaderOptions = {}) {
         this.baseLink = baseLink;
         this.options = options;
     }
@@ -41,7 +40,9 @@ class Loader {
 
     private makeUrl(options: LoaderOptions, endpoint: string): string {
         const urlOptions = { ...this.options, ...options };
-        let url = `${this.baseLink}${endpoint}?`;
+        
+        const separator = this.baseLink.includes('?') ? '' : '?';
+        let url = `${this.baseLink}${endpoint}${separator}`;
 
         Object.keys(urlOptions).forEach((key) => {
             url += `${key}=${urlOptions[key]}&`;
