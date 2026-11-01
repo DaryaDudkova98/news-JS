@@ -14,9 +14,14 @@ class App {
     public start(): void {
         this.view.onSourceSelect((source: NewsSource) => {
             console.log('1. App.ts получил выбранный источник:', source);
-            this.controller.getNewsBySource(source.id, (data: NewsApiResponse) => {
-                this.view.drawNews(data);
-            });
+            
+            if (source && source.id) {
+                this.controller.getNewsBySource(source.id, (data: NewsApiResponse) => {
+                    this.view.drawNews(data);
+                });
+            } else {
+                console.error('Ошибка: source или source.id отсутствует', source);
+            }
         });
 
         this.controller.getSources((data: SourcesApiResponse) => {

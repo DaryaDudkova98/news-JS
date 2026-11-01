@@ -14,7 +14,7 @@ class AppController extends AppLoader {
         if (!sourceId) return;
 
         const params: RequestParams = {
-            endpoint: 'everything',
+            endpoint: 'top-headlines',
             options: {
                 sources: sourceId,
             },

@@ -70,7 +70,9 @@ class Sources {
             const id = li.dataset.sourceId;
 
             const item = this.allData.find((s) => String(s.id) === id);
-            if (item) this.select(item);
+            if (item) {
+                this.select(item);
+            }
         });
     }
 
