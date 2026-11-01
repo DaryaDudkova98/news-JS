@@ -40,9 +40,11 @@ class Loader {
 
     private makeUrl(options: LoaderOptions, endpoint: string): string {
         const urlOptions = { ...this.options, ...options };
-        
+
+        urlOptions['endpoint'] = endpoint;
+
         const separator = this.baseLink.includes('?') ? '' : '?';
-        let url = `${this.baseLink}${endpoint}${separator}`;
+        let url = `${this.baseLink}${separator}`;
 
         Object.keys(urlOptions).forEach((key) => {
             url += `${key}=${urlOptions[key]}&`;
