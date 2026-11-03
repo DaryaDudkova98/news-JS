@@ -2,10 +2,15 @@ import AppLoader from './appLoader';
 import { Callback, RequestParams } from './loader';
 import { NewsApiResponse, SourcesApiResponse } from '../../types';
 
+export enum Endpoint {
+    Sources = 'sources',
+    TopHeadlines = 'top-headlines',
+}
+
 class AppController extends AppLoader {
     public getSources(callback: Callback<SourcesApiResponse>): void {
         const params: RequestParams = {
-            endpoint: 'sources',
+            endpoint: Endpoint.Sources,
         };
         super.getResp(params, callback);
     }
@@ -14,7 +19,7 @@ class AppController extends AppLoader {
         if (!sourceId) return;
 
         const params: RequestParams = {
-            endpoint: 'top-headlines',
+            endpoint: Endpoint.TopHeadlines,
             options: {
                 sources: sourceId,
             },
