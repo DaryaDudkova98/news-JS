@@ -1,2 +1,6 @@
 node_modules
 .env
+dist/
+docs/
+server.js
+.vscode/settings.json
