@@ -13,23 +13,105 @@ header h1 {
     font-weight: 800;
 }
 
-footer {
-    height: 100px;
+footer .footer-wrapper {
+    min-height: 100px;
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: center;
+    gap: 20px;
+    padding: 16px;
+    box-sizing: border-box;
 }
-footer .copyright {
-    font-size: 14px;
-    color: #333;
-    text-align: center;
+
+.footer-wrapper img {
+    height: 64px;
+    width: auto;
+    flex-shrink: 0;
 }
-footer .copyright a {
-    color: #444;
+
+.footer-wrapper .course {
+    text-decoration: none;
+    color: #fff;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    display: inline-block;
+    transition: color 0.25s ease, filter 0.25s ease, transform 0.25s ease;
+    letter-spacing: 0.06em;
 }
-footer .copyright a:hover {
-    color: #555;
+
+.github-link svg {
+    height: 64px;
+    width: auto;
+    color: #fff;
+    display: block;
+    transition: color 0.25s ease, filter 0.25s ease, transform 0.25s ease;
 }
-footer .copyright:before {
-    content: '©';
+
+@media (hover: hover) and (pointer: fine) {
+    .footer-wrapper .course:hover {
+        color: #fff;
+        filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.8));
+        transform: scale(1.06);
+    }
+
+    .github-link svg:hover {
+        color: #fff;
+        filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.8));
+        transform: scale(1.1);
+    }
+}
+
+/* --- MEDIA --- */
+
+@media (max-width: 768px) {
+    footer .footer-wrapper {
+        gap: 16px;
+    }
+
+    .footer-wrapper img,
+    .github-link svg {
+        height: 48px;
+    }
+}
+
+@media (max-width: 480px) {
+    footer .footer-wrapper {
+        flex-direction: column;
+        gap: 12px;
+        padding: 20px 12px;
+        min-height: auto;
+    }
+
+    .footer-wrapper img,
+    .github-link svg {
+        height: 40px;
+    }
+
+    .footer-wrapper .course {
+        font-size: 14px;
+        letter-spacing: 0.04em;
+    }
+}
+
+@media (max-width: 360px) {
+    .footer-wrapper img,
+    .github-link svg {
+        height: 32px;
+    }
+
+    footer .footer-wrapper {
+        gap: 10px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .footer-wrapper .course,
+    .github-link svg {
+        transition: none;
+    }
+
+    .footer-wrapper .course:hover,
+    .github-link svg:hover {
+        transform: none;
+    }
 }
