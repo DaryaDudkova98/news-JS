@@ -53,16 +53,11 @@ class Loader {
         return url.slice(0, -1);
     }
 
-    private load<T>(
-        method: string,
-        endpoint: string,
-        callback: Callback<T>,
-        options: LoaderOptions = {}
-    ): void {
+    private load<T>(method: string, endpoint: string, callback: Callback<T>, options: LoaderOptions = {}): void {
         const url = this.makeUrl(options, endpoint);
         const cacheKey = `news_cache_${url}`;
         const cachedString = localStorage.getItem(cacheKey);
-        
+
         if (cachedString) {
             try {
                 const { timestamp, data } = JSON.parse(cachedString);
@@ -75,7 +70,7 @@ class Loader {
                 } else {
                     localStorage.removeItem(cacheKey);
                 }
-            } catch (e) {
+            } catch {
                 localStorage.removeItem(cacheKey);
             }
         }
@@ -91,7 +86,7 @@ class Loader {
                 };
                 try {
                     localStorage.setItem(cacheKey, JSON.stringify(cacheData));
-                } catch (e) {
+                } catch {
                     console.warn('Не удалось сохранить данные в localStorage (возможно, переполнен)');
                 }
                 callback(data);

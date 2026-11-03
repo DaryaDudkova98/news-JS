@@ -2,7 +2,6 @@ import './news.css';
 import { NewsArticle } from '../../../types';
 import placeholder from '../../../img/no_photo.png';
 
-
 class News {
     public draw(data: NewsArticle[]): void {
         const news = data.slice(0, 10);
@@ -46,7 +45,7 @@ class News {
 
             fragment.append(newsClone);
         });
-        
+
         const newsContainer = document.querySelector('.news');
         if (newsContainer) {
             newsContainer.innerHTML = '';

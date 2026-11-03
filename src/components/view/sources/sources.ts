@@ -54,7 +54,11 @@ class Sources {
         this.input!.addEventListener('keydown', (e) => this.onKeyDown(e));
 
         this.toggleBtn?.addEventListener('click', () => {
-            this.isOpen ? this.close() : this.open();
+            if (this.isOpen) {
+                this.close();
+            } else {
+                this.open();
+            }
         });
 
         document.addEventListener('click', (e) => {
@@ -78,9 +82,7 @@ class Sources {
 
     private filter(query: string): void {
         const q = query.trim().toLowerCase();
-        this.filtered = q
-            ? this.allData.filter((s) => s.name.toLowerCase().includes(q))
-            : [...this.allData];
+        this.filtered = q ? this.allData.filter((s) => s.name.toLowerCase().includes(q)) : [...this.allData];
         this.activeIndex = this.filtered.length > 0 ? 0 : -1;
         this.renderList();
     }
@@ -162,9 +164,7 @@ class Sources {
     }
 
     private scrollActiveIntoView(): void {
-        this.list
-            ?.querySelector('.is-active')
-            ?.scrollIntoView({ block: 'nearest' });
+        this.list?.querySelector('.is-active')?.scrollIntoView({ block: 'nearest' });
     }
 }
 
